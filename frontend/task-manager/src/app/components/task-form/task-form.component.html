@@ -1,0 +1,43 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title mb-3">{{ selectedTask ? 'Edit Task' : 'Add New Task' }}</h5>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input id="title" type="text" formControlName="title" class="form-control" placeholder="Enter task title" />
+        <div class="text-danger small mt-1" *ngIf="form.controls.title.touched && form.controls.title.invalid">
+          Title is required and must be <= 200 characters.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          rows="3"
+          formControlName="description"
+          class="form-control"
+          placeholder="Optional task description"
+        ></textarea>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary" type="submit" [disabled]="isSaving">
+          {{ selectedTask ? 'Update' : 'Add' }}
+        </button>
+
+        <button
+          *ngIf="selectedTask"
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="cancelEdit.emit()"
+          [disabled]="isSaving"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

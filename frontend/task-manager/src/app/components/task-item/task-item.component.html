@@ -1,0 +1,25 @@
+<div class="card shadow-sm task-card" [class.completed]="task.status === 'completed'">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+      <h6 class="mb-0" [class.text-decoration-line-through]="task.status === 'completed'">
+        {{ task.title }}
+      </h6>
+      <span class="badge" [class.bg-success]="task.status === 'completed'" [class.bg-warning]="task.status === 'pending'">
+        {{ task.status }}
+      </span>
+    </div>
+
+    <p class="text-muted mb-3" [class.text-decoration-line-through]="task.status === 'completed'">
+      {{ task.description || 'No description provided.' }}
+    </p>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-sm btn-outline-primary" type="button" (click)="editTask.emit(task)">Edit</button>
+      <button class="btn btn-sm btn-outline-success" type="button" (click)="toggleComplete.emit(task)">
+        {{ task.status === 'completed' ? 'Mark Pending' : 'Complete' }}
+      </button>
+      <button class="btn btn-sm btn-outline-danger" type="button" (click)="deleteTask.emit(task._id)">Delete</button>
+    </div>
+  </div>
+</div>
+

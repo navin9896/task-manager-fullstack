@@ -1,0 +1,55 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 col-xl-8">
+      <h2 class="mb-4 fw-bold">Task Manager</h2>
+
+      <app-task-form
+        [selectedTask]="selectedTask"
+        [isSaving]="isSaving"
+        (createTask)="onCreateTask($event)"
+        (updateTask)="onUpdateTask($event)"
+        (cancelEdit)="onCancelEdit()"
+      />
+
+      <div class="d-flex align-items-center gap-2 my-3">
+        <span class="text-muted small">Filter:</span>
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-dark]="filter === 'all'"
+          [class.btn-outline-dark]="filter !== 'all'"
+          (click)="setFilter('all')"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-warning]="filter === 'pending'"
+          [class.btn-outline-warning]="filter !== 'pending'"
+          (click)="setFilter('pending')"
+        >
+          Pending
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-success]="filter === 'completed'"
+          [class.btn-outline-success]="filter !== 'completed'"
+          (click)="setFilter('completed')"
+        >
+          Completed
+        </button>
+      </div>
+
+      <app-task-list
+        [tasks]="filteredTasks"
+        [isLoading]="isLoading"
+        (editTask)="onStartEdit($event)"
+        (toggleComplete)="onToggleComplete($event)"
+        (deleteTask)="onDeleteTask($event)"
+      />
+    </div>
+  </div>
+</div>
+

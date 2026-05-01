@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center my-4" *ngIf="isLoading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="text-center text-muted py-4 border rounded bg-light" *ngIf="!isLoading && tasks.length === 0">
+  No tasks found for this filter.
+</div>
+
+<div class="d-grid gap-3" *ngIf="!isLoading && tasks.length > 0">
+  <app-task-item
+    *ngFor="let task of tasks; trackBy: trackById"
+    [task]="task"
+    (editTask)="editTask.emit($event)"
+    (toggleComplete)="toggleComplete.emit($event)"
+    (deleteTask)="deleteTask.emit($event)"
+  />
+</div>
+
